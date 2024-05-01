@@ -41,6 +41,10 @@ export default function Login() {
     navigation.navigate('Signup');
   };
 
+  const navigateToForgotPassword = () => {
+    navigation.navigate('ForgotPassword');
+  };
+
 
   useEffect(() => {
     const keyboardDidShowListener = Keyboard.addListener('keyboardDidShow', () => {
@@ -110,7 +114,7 @@ export default function Login() {
         </View>
         {!passwordValid && !passwordEditing && <Text style={styles.validationText}>Password must be at least 6 characters long</Text>}
 
-        <TouchableOpacity>
+        <TouchableOpacity onPress={navigateToForgotPassword}>
           <Text style={[styles.forgotpassText, { fontFamily: 'Aleo_700Regular' }]}>Forgot Password?</Text>
         </TouchableOpacity>
 
@@ -120,6 +124,7 @@ export default function Login() {
         </TouchableOpacity>
 
         <Text style={[styles.orText, { fontFamily: 'Aleo_400Regular' }]}>or</Text>
+
         <TouchableOpacity style={[styles.button, styles.googleButton]}>
           <Text style={[styles.buttonText, { fontFamily: 'Aleo_700Bold' }]}>Continue with Google</Text>
         </TouchableOpacity>

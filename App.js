@@ -12,6 +12,7 @@ import Notification from './components/Notification';
 import Settings from './components/Settings';
 import Chatbot from './components/Chatbot';
 import Login from './components/Login';
+import ForgotPassword from './components/ForgotPassword'
 
 
 
@@ -28,6 +29,7 @@ const App = () => {
           <Stack.Screen name="Home" component={Home} />
           <Stack.Screen name="Signup" component={Signup} />
           <Stack.Screen name="Login" component={Login} />
+          <Stack.Screen name="ForgotPassword" component={ForgotPassword} />
           <Stack.Screen name="Verification" component={Verification}/>
           <Stack.Screen name="Nutrition" component={Nutrition}/>
           <Stack.Screen name="Notification" component={Notification} />
