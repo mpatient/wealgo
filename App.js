@@ -12,8 +12,11 @@ import Notification from './components/Notification';
 import Settings from './components/Settings';
 import Chatbot from './components/Chatbot';
 import Login from './components/Login';
-import ForgotPassword from './components/ForgotPassword'
-
+import ForgotPassword from './components/ForgotPassword/ForgotPassword';
+import ForgotPasswordNumber from './components/ForgotPassword/ForgotPasswordNumber';
+import ForgotPasswordEmail from './components/ForgotPassword/ForgotPasswordEmail';
+import ForgotPasswordVerification from './components/ForgotPassword/ForgotPasswordVerification';
+import ForgotPasswordConfirm from './components/ForgotPassword/ForgotPasswordConfirm'
 
 
 const Stack = createStackNavigator(); 
@@ -30,6 +33,10 @@ const App = () => {
           <Stack.Screen name="Signup" component={Signup} />
           <Stack.Screen name="Login" component={Login} />
           <Stack.Screen name="ForgotPassword" component={ForgotPassword} />
+          <Stack.Screen name="ForgotPasswordEmail" component={ForgotPasswordEmail} />
+          <Stack.Screen name="ForgotPasswordNumber" component={ForgotPasswordNumber} />
+          <Stack.Screen name="ForgotPasswordVerification" component={ForgotPasswordVerification} />
+          <Stack.Screen name="ForgotPasswordConfirm" component={ForgotPasswordConfirm} />
           <Stack.Screen name="Verification" component={Verification}/>
           <Stack.Screen name="Nutrition" component={Nutrition}/>
           <Stack.Screen name="Notification" component={Notification} />

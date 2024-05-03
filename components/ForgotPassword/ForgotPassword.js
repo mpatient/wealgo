@@ -13,6 +13,7 @@ export default function ForgotPassword() {
 //   const [emailEditing, setEmailEditing] = useState(false);
 //   const [passwordEditing, setPasswordEditing] = useState(false);
 //   const [passwordVisible, setPasswordVisible] = useState(false);
+  const [selectedButton, setSelectedButton] = useState('');
   const [keyboardVisible, setKeyboardVisible] = useState(false);
 
   // Keyboard visibility management
@@ -26,7 +27,24 @@ export default function ForgotPassword() {
 
   const handleButtonPress = (buttonName) => {
     setSelectedButton(buttonName === selectedButton ? null : buttonName);
+
   };
+
+  const handleContinuePress = () => {
+    if (selectedButton) {
+      if (selectedButton === 'email') {
+        console.log(selectedButton);
+        navigation.navigate('ForgotPasswordEmail');
+        console.log('Email button was selected');
+      } else if (selectedButton === 'pnumber') {
+        navigation.navigate('ForgotPasswordNumber');
+        console.log('Phone Number button was selected');
+      }
+    } else {
+      // Handle case when no button is selected
+      console.log('No button selected');
+    }
+  }
 
   return (
     <View style={styles.container}>
@@ -35,70 +53,44 @@ export default function ForgotPassword() {
           <Text style={[styles.headerText, { fontFamily: 'Aleo_700Bold' }]}>Cancel</Text>
         </TouchableOpacity>
       </View>
-      {!keyboardVisible && (
-        <Image source={require('../assets/images/wealgo.png')} style={styles.image} />
-      )}
       <View style={[styles.formContainer, { marginTop: -20 }]}>
         <Text style={[styles.EnterText, { fontFamily: 'Aleo_700Bold' }]}>Select which contact details should we use to reset your password</Text>
-         {/*<TextInput
-          style={[styles.input, { fontFamily: 'Aleo_400Regular' }]}
-          placeholder="Email"
-          onChangeText={(text) => {
-            setEmail(text);
-            setEmailEditing(true);
-            setEmailValid(true); // Clear validation message while typing
-          }}
-          onBlur={() => setEmailEditing(false)} // Update emailEditing state on blur
-          value={email}
-          keyboardType="email-address"
-        />
-        {!emailValid && !emailEditing && <Text style={styles.validationText}>Invalid email address</Text>}
-        
-        <View style={styles.passwordInput}>
-          <TextInput
-            style={[styles.input, { fontFamily: 'Aleo_400Regular', flex: 1 }]}
-            placeholder="Password"
-            onChangeText={(text) => {
-              setPassword(text);
-              setPasswordEditing(true);
-              setPasswordValid(true); // Clear validation message while typing
-            }}
-            onBlur={() => setPasswordEditing(false)} // Update passwordEditing state on blur
-            value={password}
-            secureTextEntry={!passwordVisible}
-          />
-          {password.length > 0 && (
-            <TouchableOpacity onPress={() => setPasswordVisible(!passwordVisible)}>
-              <MaterialCommunityIcons name={passwordVisible ? "eye-off" : "eye"} size={24} color="black" style={styles.eyeIcon} />
-            </TouchableOpacity>
-          )}
-        </View>
-        {!passwordValid && !passwordEditing && <Text style={styles.validationText}>Password must be at least 6 characters long</Text>}
-
-        <TouchableOpacity style={[styles.button, styles.loginButton]}>
-          <Text style={[styles.buttonText, { fontFamily: 'Aleo_700Bold' }]}>Login</Text>
-        </TouchableOpacity>
-
-        <Text style={[styles.orText, { fontFamily: 'Aleo_400Regular' }]}>or</Text> */}
 
         <TouchableOpacity 
         style={[
             styles.button,
             styles.emailButton,
-            // selectedButton === 'email' && styles.selectedButton,
+            selectedButton === 'email' && styles.selectedButton,
             ]}
             onPress={() => handleButtonPress('email')}
         >    
           <Text style={[styles.buttonText, { fontFamily: 'Aleo_700Bold' }]}>Email</Text>
         </TouchableOpacity>
 
-        <TouchableOpacity style={[styles.button, styles.phonenumberButton]}>
+        <TouchableOpacity 
+        style={[
+          styles.button, 
+          styles.phonenumberButton,
+          selectedButton === 'pnumber' && styles.selectedButton,
+          ]}
+          onPress={() => handleButtonPress('pnumber')}
+        >
           <Text style={[styles.buttonText, { fontFamily: 'Aleo_700Bold' }]}>Phone Number</Text>
         </TouchableOpacity>
-        <TouchableOpacity style={[styles.button, styles.continueButton]}>
+
+        <TouchableOpacity 
+          style={[
+            styles.button, 
+            styles.continueButton,
+          ]}
+          onPress={() => {
+            handleContinuePress();
+            console.log('Continue button pressed'); 
+          }}
+        >
           <Text style={[styles.buttonText, { fontFamily: 'Aleo_700Bold' }]}>Continue</Text>
         </TouchableOpacity>
-        <Text style={[styles.accountText, { fontFamily: 'Aleo_400Regular' }]}>Don't have account?</Text>
+
       </View>
     </View>
   );
@@ -121,9 +113,10 @@ const styles = StyleSheet.create({
       marginTop: 45,
     },
     EnterText: {
-      textAlign: 'start',
+      textAlign: 'center',
       color: '#AF5F17',
       marginBottom: 10,
+      justifyContent: 'center',
     },
     header: {
       flexDirection: 'row',
@@ -160,11 +153,6 @@ const styles = StyleSheet.create({
       color: 'red',
       marginBottom: 10,
       fontSize: 10
-    },
-    orText: {
-      textAlign: 'center',
-      marginBottom: 20,
-      color: '#AF5F17',
     },
     forgotpassText: {
       textAlign: 'start',
@@ -218,6 +206,9 @@ const styles = StyleSheet.create({
       alignItems: 'center'
     },
     selectedButton: {
-        color: 'white',
+        // backgroundColor: 'yellow',
+        borderColor: "#2b4a39",
+        borderStyle: "solid",
+        borderWidth: 2,
     },
   });
