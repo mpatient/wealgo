@@ -14,6 +14,10 @@ const navigation = useNavigation();
     navigation.goBack(); // Navigate back to the previous screen
   };
 
+  const navigateToHome = () => {
+    navigation.navigate('Home');
+  }
+
   const loadFonts = async () => {
     await Font.loadAsync({
       Aleo_700Bold,
@@ -74,10 +78,10 @@ const navigation = useNavigation();
           </Text>
           <View style={styles.codeContainer}>{renderInputs()}</View>
           <TouchableOpacity style={styles.resendButton}>
-            <Text style={[styles.resendButtonText, { fontFamily: 'Aleo_400Regular' }]}>I didn't receive a code. Resend</Text>
+            <Text style={[styles.resendButt,onText, { fontFamily: 'Aleo_400Regular' }]}>I didn't receive a code. Resend</Text>
           </TouchableOpacity>
           <TouchableOpacity 
-            style={styles.verifyButton}>
+            style={styles.verifyButton} onPress={navigateToHome}>
             <Text style={[styles.verifyButtonText, { fontFamily: 'Aleo_700Bold' }]}>Verify now</Text>
           </TouchableOpacity>
         </View>
