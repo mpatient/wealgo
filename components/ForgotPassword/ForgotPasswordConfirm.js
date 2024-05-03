@@ -18,27 +18,36 @@ export default function ForgotPasswordConfirm() {
   const [confirmPasswordEditing, setConfirmPasswordEditing] = useState(false);
   const [passwordVisible, setPasswordVisible] = useState(false);
   
-    const [fontsLoaded, setFontsLoaded] = useState(false);
-    const inputRefs = useRef([]);
-    const navigation = useNavigation();
+  const [fontsLoaded, setFontsLoaded] = useState(false);
+  const inputRefs = useRef([]);
+  const navigation = useNavigation();
 
-    const handleConfirmPress = () => {
-        navigation.navigate("Login");
-      };
+  const navigateToVerification = async () => {
+    const isPasswordValid = validatePassword(password);
+    const isConfirmPasswordValid = password === confirmPassword;
 
-      useEffect(() => {
-        const keyboardDidShowListener = Keyboard.addListener('keyboardDidShow', () => {
-          setKeyboardVisible(true);
-        });
-        const keyboardDidHideListener = Keyboard.addListener('keyboardDidHide', () => {
-          setKeyboardVisible(false);
-        });
-    
-        return () => {
-          keyboardDidShowListener.remove();
-          keyboardDidHideListener.remove();
-        };
-      }, []);
+    // setEmailValid(isEmailValid);
+    setPasswordValid(isPasswordValid);
+    setConfirmPasswordValid(isConfirmPasswordValid);
+
+    if (isPasswordValid && isConfirmPasswordValid) {
+      try {
+        const auth = getAuth();
+        const userCredential = await createUserWithEmailAndPassword(auth, password);
+        const user = userCredential.user;
+        // Do something with the created user, if needed
+        console.log('User created:', user);
+        // Navigate to verification or any other screen
+        navigation.navigate('Login');
+      } catch (error) {
+        console.error('Error creating user:', error.message);
+      }
+
+    }
+  };
+  const validatePassword = (text) => {
+    return text.length >= 6;
+  };
 
  const handleBackButtonPress = () => {
     navigation.goBack(); // Navigate back to the previous screen
@@ -73,7 +82,7 @@ export default function ForgotPasswordConfirm() {
     </View>
     <View style={[styles.contentContainer]}>
       <View style={[styles.formContainer]}>
-      <Text style={[styles.EnterText, { fontFamily: 'Aleo_700Bold' }]}>Select which contact details should we use to reset your password</Text>
+      <Text style={[styles.EnterText, { fontFamily: 'Aleo_700Bold' }]}>Confirm your Password</Text>
         <View style={styles.passwordInput}>
           <TextInput
             style={[styles.input, { fontFamily: 'Aleo_400Regular', flex: 1 }]}
@@ -118,7 +127,7 @@ export default function ForgotPasswordConfirm() {
         {!confirmPasswordValid && !confirmPasswordEditing && <Text style={styles.validationText}>Passwords do not match</Text>}
       </View>
       
-      <TouchableOpacity style={[styles.button, styles.loginButton]} onPress={handleConfirmPress}>
+      <TouchableOpacity style={[styles.button, styles.loginButton]} onPress={navigateToVerification}>
         <Text style={[styles.buttonText, { fontFamily: 'Aleo_700Bold' }]}>Confirm</Text>
       </TouchableOpacity>
     </View>
