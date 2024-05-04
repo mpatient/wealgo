@@ -1,12 +1,14 @@
 import React, { useState } from 'react';
-import { View, Text, TouchableOpacity, TextInput, StyleSheet, PermissionsAndroid } from 'react-native';
+import { View, Text, TouchableOpacity, TextInput, StyleSheet } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
-import { SendDirectSms } from 'react-native-send-direct-sms';
+// import { SendDirectSms } from 'react-native-send-direct-sms';
+
 
 const ForgotPasswordNumber = () => {
   const [mobileNumber, setMobileNumber] = useState('');
   const [bodySMS, setBodySMS] = useState('');
 
+  
   const navigation = useNavigation();
 
   const handleBackButtonPress = () => {
