@@ -23,28 +23,13 @@ export default function ForgotPasswordConfirm() {
   const navigation = useNavigation();
 
   const navigateToVerification = async () => {
-    const isPasswordValid = validatePassword(password);
-    const isConfirmPasswordValid = password === confirmPassword;
+  const isPasswordValid = validatePassword(password);
+  const isConfirmPasswordValid = password === confirmPassword;
 
-    // setEmailValid(isEmailValid);
-    setPasswordValid(isPasswordValid);
-    setConfirmPasswordValid(isConfirmPasswordValid);
-
-    if (isPasswordValid && isConfirmPasswordValid) {
-      try {
-        const auth = getAuth();
-        const userCredential = await createUserWithEmailAndPassword(auth, password);
-        const user = userCredential.user;
-        // Do something with the created user, if needed
-        console.log('User created:', user);
-        // Navigate to verification or any other screen
-        navigation.navigate('Login');
-      } catch (error) {
-        console.error('Error creating user:', error.message);
-      }
-
-    }
+  setPasswordValid(isPasswordValid);
+  setConfirmPasswordValid(isConfirmPasswordValid);
   };
+
   const validatePassword = (text) => {
     return text.length >= 6;
   };
@@ -88,9 +73,9 @@ export default function ForgotPasswordConfirm() {
             style={[styles.input, { fontFamily: 'Aleo_400Regular', flex: 1 }]}
             placeholder="Password"
             onChangeText={(text) => {
-            setPassword(text);
-            setPasswordEditing(true);
-            setPasswordValid(true); // Clear validation message while typing
+              setPassword(text);
+              setPasswordEditing(true);
+              setPasswordValid(true); // Clear validation message while typing
             }}
             onBlur={() => setPasswordEditing(false)} // Update passwordEditing state on blur
             value={password}
@@ -194,29 +179,13 @@ const styles = StyleSheet.create({
     paddingHorizontal: 20,
     borderRadius: 5,
   },
-  loginButtonText:{
-    color: '#ffff',
-    fontSize: 15,
-    padding: 10,
-  },
   buttonText: {
     color: '#ffff',
     fontSize: 15,
   },
-  accountText: {
-    textAlign: 'center',
-    color: '#AF5F17',
-    marginTop: 10,
-  },
   passwordInput: {
     flexDirection: 'row',
     alignItems: 'center',
-  },
-  selectedButton: {
-      // backgroundColor: 'yellow',
-      borderColor: "#2b4a39",
-      borderStyle: "solid",
-      borderWidth: 2,
   },
   backButton: {
     padding: 10,

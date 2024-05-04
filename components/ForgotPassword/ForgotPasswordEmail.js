@@ -67,13 +67,6 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     width: '100%',
   },
-  image: {
-    width: '80%',
-    height: 150,
-    resizeMode: 'contain',
-    marginBottom: 50,
-    marginTop: 45,
-  },
   EnterText: {
     textAlign: 'center',
     color: '#AF5F17',
@@ -116,16 +109,6 @@ const styles = StyleSheet.create({
     marginBottom: 10,
     fontSize: 10
   },
-  orText: {
-    textAlign: 'center',
-    marginBottom: 20,
-    color: '#AF5F17',
-  },
-  forgotpassText: {
-    textAlign: 'start',
-    marginBottom: 20,
-    color: '#AF5F17',
-  },
   button: {
     height: 33,
     borderRadius: 5,
@@ -133,18 +116,9 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     marginBottom: 15,
   },
-  emailButton: {
-    backgroundColor: '#cbe097',
-  },
-  phonenumberButton: {
-    backgroundColor: '#cbe097',
-  },
   continueButton: {
       backgroundColor: '#e27c25',
     },
-  signupButton: {
-    paddingVertical: 20,
-  },
   loginButton: {
     backgroundColor: '#FF9800',
     paddingVertical: 12,
@@ -156,27 +130,6 @@ const styles = StyleSheet.create({
   buttonText: {
     color: '#fff',
     fontSize: 15,
-  },
-  accountText: {
-    textAlign: 'center',
-    color: '#AF5F17',
-    marginTop: 10,
-  },
-  passwordInput: {
-    flexDirection: 'row',
-    alignItems: 'center',
-  },
-  eyeIcon: {
-    position: 'absolute',
-    right: 30,
-    bottom: 0.5,
-    alignItems: 'center'
-  },
-  selectedButton: {
-      // backgroundColor: 'yellow',
-      borderColor: "#2b4a39",
-      borderStyle: "solid",
-      borderWidth: 2,
   },
 });
 
