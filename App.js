@@ -17,6 +17,7 @@ import ForgotPasswordNumber from './components/ForgotPassword/ForgotPasswordNumb
 import ForgotPasswordEmail from './components/ForgotPassword/ForgotPasswordEmail';
 import ForgotPasswordVerification from './components/ForgotPassword/ForgotPasswordVerification';
 import ForgotPasswordConfirm from './components/ForgotPassword/ForgotPasswordConfirm'
+import 'dotenv/config';
 
 
 const Stack = createStackNavigator(); 

@@ -18,8 +18,8 @@ const transporter = nodemailer.createTransport({
   port: 465,
   host: "smtp.gmail.com",
   auth: {
-    user: "vincemarc.mr@gmail.com",//"blastleez11@gmail.com",
-    pass: "afzl lrqk uhuy btwk",//"09092142897jay",
+    user: process.env.EMAIL_USER,
+    pass: process.env.EMAIL_PASS,
   },
   secure: true, // use SSL
 });
@@ -31,9 +31,9 @@ app.post("/v1/email", (req, res) => {
   // Create email data
   const mailData = {
     from: "onlineshits27@gmail.com",
-    to: to,
-    subject: subject,
-    text: text,
+    to: "uwu.anon@gmail.com",
+    subject: "subject",
+    text: "text",
   };
 
   // Send the email
