@@ -1,21 +1,55 @@
 import React, { useState } from 'react';
-import { View, Text, Button, Image, TouchableOpacity, TextInput, StyleSheet, Dimensions } from 'react-native';
+import { View, Text, TouchableOpacity, TextInput, StyleSheet, Alert } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
+import axios from 'axios'; // Import axios for making HTTP requests
 
 const ForgotPasswordEmail = () => {
-
   const [email, setEmail] = useState('');
   const [emailValid, setEmailValid] = useState(true);
   const [emailEditing, setEmailEditing] = useState(false);
 
   const navigation = useNavigation();
+
   const handleBackButtonPress = () => {
     navigation.goBack();
   };
 
-  const handleContinuePress = () => {
-    navigation.navigate('ForgotPasswordVerification')
-  }
+  const navigateToVerification = async () => {
+    const isEmailValid = validateEmail(email);
+
+    setEmailValid(isEmailValid);
+    console.log("hi")
+    if (isEmailValid) {
+      console.log("hello")
+      try {
+        // Make a POST request to your Express server to send the verification email
+        const response = await axios.post('http://localhost:5000/v1/email', {
+          to: email,
+          subject: 'Verification Code',
+          text: `Your verification code is: ${generateVerificationNumber()}`
+        });
+        console.log(response)
+        if (response.data.message === 'Mail send') {
+          navigation.navigate('ForgotPasswordVerification');
+        } else {
+          Alert.alert('Error', 'Failed to send verification email. Please try again.');
+        }
+      } catch (error) {
+        console.error('Error sending verification email:', error.message);
+        Alert.alert('Error', 'Failed to send verification email. Please try again.');
+      }
+    }
+  };
+
+  const generateVerificationNumber = () => {
+    const randomCode = Math.floor(1000 + Math.random() * 9000);
+    return randomCode;
+  };
+
+  const validateEmail = (text) => {
+    const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return regex.test(text);
+  };
 
   return (
     <View style={styles.container}>
@@ -32,9 +66,9 @@ const ForgotPasswordEmail = () => {
           onChangeText={(text) => {
             setEmail(text);
             setEmailEditing(true);
-            setEmailValid(true); // Clear validation message while typing
+            setEmailValid(true);
           }}
-          onBlur={() => setEmailEditing(false)} // Update emailEditing state on blur
+          onBlur={() => setEmailEditing(false)}
           value={email}
           keyboardType="email-address"
         />
@@ -46,8 +80,7 @@ const ForgotPasswordEmail = () => {
             styles.continueButton,
           ]}
           onPress={() => {
-            handleContinuePress();
-            console.log('Continue button pressed'); 
+            navigateToVerification();
           }}
         >
           <Text style={[styles.buttonText, { fontFamily: 'Aleo_700Bold' }]}>Continue</Text>
@@ -55,7 +88,6 @@ const ForgotPasswordEmail = () => {
 
       </View>
     </View>
-    
   );
 };
 
@@ -119,14 +151,6 @@ const styles = StyleSheet.create({
   continueButton: {
       backgroundColor: '#e27c25',
     },
-  loginButton: {
-    backgroundColor: '#FF9800',
-    paddingVertical: 12,
-  },
-  loginButtonText:{
-    color: '#E67F22',
-    fontSize: 25,
-  },
   buttonText: {
     color: '#fff',
     fontSize: 15,
