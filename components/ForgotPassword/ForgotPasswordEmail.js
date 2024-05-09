@@ -3,6 +3,8 @@ import { View, Text, TouchableOpacity, TextInput, StyleSheet, Alert } from 'reac
 import { useNavigation } from '@react-navigation/native';
 import axios from 'axios'; // Import axios for making HTTP requests
 
+// export {generateVerificationNumber};
+
 const ForgotPasswordEmail = () => {
   const [email, setEmail] = useState('');
   const [emailValid, setEmailValid] = useState(true);
@@ -22,15 +24,16 @@ const ForgotPasswordEmail = () => {
     if (isEmailValid) {
       console.log("hello")
       try {
+        const randomCode = generateVerificationNumber();
         // Make a POST request to your Express server to send the verification email
         const response = await axios.post('http://localhost:5000/v1/email', {
           to: email,
           subject: 'Verification Code',
-          text: `Your verification code is: ${generateVerificationNumber()}`
+          text: `Your verification code is: ${randomCode}`
         });
         console.log(response)
         if (response.data.message === 'Mail send') {
-          navigation.navigate('ForgotPasswordVerification');
+          navigation.navigate('ForgotPasswordVerification', {randomCode});
         } else {
           Alert.alert('Error', 'Failed to send verification email. Please try again.');
         }
@@ -39,11 +42,6 @@ const ForgotPasswordEmail = () => {
         Alert.alert('Error', 'Failed to send verification email. Please try again.');
       }
     }
-  };
-
-  const generateVerificationNumber = () => {
-    const randomCode = Math.floor(1000 + Math.random() * 9000);
-    return randomCode;
   };
 
   const validateEmail = (text) => {
@@ -89,6 +87,11 @@ const ForgotPasswordEmail = () => {
       </View>
     </View>
   );
+};
+
+const generateVerificationNumber = () => {
+  const randomCode = Math.floor(1000 + Math.random() * 9000);
+  return randomCode;
 };
 
 const styles = StyleSheet.create({

@@ -1,6 +1,8 @@
 const express = require("express");
 const bodyParser = require("body-parser");
 const nodemailer = require("nodemailer");
+const cors = require('cors');
+
 
 const app = express();
 const port = process.env.PORT || 5000;
@@ -8,14 +10,16 @@ const port = process.env.PORT || 5000;
 // Parse incoming requests data
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
+app.use(cors());
+
 
 // Create a nodemailer transporter
 const transporter = nodemailer.createTransport({
   port: 465,
   host: "smtp.gmail.com",
   auth: {
-    user: "vincent.robles@tup.edu.ph",
-    pass: "@/)LiR'w+WX5@Z#",
+    user: "vincemarc.mr@gmail.com",//"blastleez11@gmail.com",
+    pass: "afzl lrqk uhuy btwk",//"09092142897jay",
   },
   secure: true, // use SSL
 });
@@ -27,9 +31,9 @@ app.post("/v1/email", (req, res) => {
   // Create email data
   const mailData = {
     from: "onlineshits27@gmail.com",
-    to: 'vincemarc.mr@gmail.com',
-    subject: "subject",
-    text: "text",
+    to: to,
+    subject: subject,
+    text: text,
   };
 
   // Send the email

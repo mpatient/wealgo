@@ -2,18 +2,33 @@ import React, { useState, useRef } from 'react';
 import { StyleSheet, Text, View, TouchableOpacity, TextInput } from 'react-native';
 import { Aleo_700Bold, Aleo_400Regular } from '@expo-google-fonts/aleo';
 import * as Font from 'expo-font';
-import { useNavigation } from '@react-navigation/native'; 
+import { useNavigation, useRoute } from '@react-navigation/native'; 
+// import { generateVerificationNumber } from './ForgotPasswordEmail';
+
 
 export default function ForgotPasswordVerification() {
+  const [verificationCode, setVerificationCode] = useState(['', '', '', '']);
+  const [fontsLoaded, setFontsLoaded] = useState(false);
+  const [isCodeValid, setIsCodeValid] = useState(true);
+  const [codeEditing, setIsCodeEditing] = useState(false);
+  const inputRefs = useRef([]);
+  const navigation = useNavigation();
+  const route = useRoute();
+  const { randomCode } = route.params;
 
-    const [verificationCode, setVerificationCode] = useState(['', '', '', '']);
-    const [fontsLoaded, setFontsLoaded] = useState(false);
-    const inputRefs = useRef([]);
-    const navigation = useNavigation();
+  const handleVerifyNowPress = () => {
+    const enteredCode = verificationCode.join('')
+    console.log(enteredCode)
 
-    const handleVerifyNowPress = () => {
-        navigation.navigate("ForgotPasswordConfirm");
-      };
+    setIsCodeValid(enteredCode === randomCode.toString());
+
+    if (enteredCode === randomCode.toString()) {
+      navigation.navigate('Home');
+    }
+    else{
+      setIsCodeValid(false);
+    }
+  };
 
  const handleBackButtonPress = () => {
     navigation.goBack(); // Navigate back to the previous screen
@@ -44,6 +59,7 @@ export default function ForgotPasswordVerification() {
   };
 
   const renderInputs = () => {
+    console.log(randomCode)
     return verificationCode.map((code, index) => (
       <TextInput
         ref={(ref) => (inputRefs.current[index] = ref)}
@@ -52,8 +68,13 @@ export default function ForgotPasswordVerification() {
         maxLength={1}
         keyboardType="numeric"
         value={code}
-        onChangeText={(text) => handleInputChange(text, index)}
+        onChangeText={(text) => {
+          handleInputChange(text, index)
+          setIsCodeEditing(true);
+        }}
+        onBlur={() => setIsCodeEditing(false)}
       />
+      
     ));
   };
 
@@ -78,6 +99,7 @@ export default function ForgotPasswordVerification() {
             Please enter the verification code sent to you
           </Text>
           <View style={styles.codeContainer}>{renderInputs()}</View>
+          {!isCodeValid && !codeEditing && <Text style={styles.validationText}>Invalid Verification Code</Text>}
           <TouchableOpacity style={styles.resendButton}>
             <Text style={[styles.resendButtonText, { fontFamily: 'Aleo_400Regular' }]}>I didn't receive a code. Resend</Text>
           </TouchableOpacity>
@@ -171,5 +193,10 @@ const styles = StyleSheet.create({
   },
   verifyButtonText: {
     color: '#FFFFFF',
+  },
+  validationText: {
+    color: 'red',
+    marginBottom: 10,
+    fontSize: 10
   },
 });
