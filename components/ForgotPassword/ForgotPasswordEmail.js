@@ -3,8 +3,6 @@ import { View, Text, TouchableOpacity, TextInput, StyleSheet, Alert } from 'reac
 import { useNavigation } from '@react-navigation/native';
 import axios from 'axios'; // Import axios for making HTTP requests
 
-// export {generateVerificationNumber};
-
 const ForgotPasswordEmail = () => {
   const [email, setEmail] = useState('');
   const [emailValid, setEmailValid] = useState(true);

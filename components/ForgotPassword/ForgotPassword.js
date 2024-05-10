@@ -1,18 +1,11 @@
 import React, { useState } from 'react';
-import { StyleSheet, Text, View, TouchableOpacity, TextInput, Image, Keyboard } from 'react-native';
+import { StyleSheet, Text, View, TouchableOpacity, Keyboard } from 'react-native';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { useNavigation } from '@react-navigation/native';
 
 export default function ForgotPassword() {
   const navigation = useNavigation();
 
-//   const [email, setEmail] = useState('');
-//   const [password, setPassword] = useState('');
-//   const [emailValid, setEmailValid] = useState(true);
-//   const [passwordValid, setPasswordValid] = useState(true);
-//   const [emailEditing, setEmailEditing] = useState(false);
-//   const [passwordEditing, setPasswordEditing] = useState(false);
-//   const [passwordVisible, setPasswordVisible] = useState(false);
   const [selectedButton, setSelectedButton] = useState('');
   const [keyboardVisible, setKeyboardVisible] = useState(false);
 

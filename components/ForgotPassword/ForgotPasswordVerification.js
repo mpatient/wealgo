@@ -3,8 +3,6 @@ import { StyleSheet, Text, View, TouchableOpacity, TextInput } from 'react-nativ
 import { Aleo_700Bold, Aleo_400Regular } from '@expo-google-fonts/aleo';
 import * as Font from 'expo-font';
 import { useNavigation, useRoute } from '@react-navigation/native'; 
-// import { generateVerificationNumber } from './ForgotPasswordEmail';
-
 
 export default function ForgotPasswordVerification() {
   const [verificationCode, setVerificationCode] = useState(['', '', '', '']);

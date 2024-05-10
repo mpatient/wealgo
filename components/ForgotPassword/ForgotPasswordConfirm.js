@@ -1,5 +1,5 @@
-import React, { useEffect, useState, useRef } from 'react';
-import { StyleSheet, Text, View, TouchableOpacity, TextInput, Modal, Image, Keyboard } from 'react-native';
+import React, { useState } from 'react';
+import { StyleSheet, Text, View, TouchableOpacity, TextInput} from 'react-native';
 import { Aleo_700Bold, Aleo_400Regular } from '@expo-google-fonts/aleo';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import * as Font from 'expo-font';
@@ -7,19 +7,15 @@ import { useNavigation } from '@react-navigation/native';
 
 export default function ForgotPasswordConfirm() {
 
-  const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
-  const [emailValid, setEmailValid] = useState(true);
   const [passwordValid, setPasswordValid] = useState(true);
   const [confirmPasswordValid, setConfirmPasswordValid] = useState(true);
-  const [emailEditing, setEmailEditing] = useState(false);
   const [passwordEditing, setPasswordEditing] = useState(false);
   const [confirmPasswordEditing, setConfirmPasswordEditing] = useState(false);
   const [passwordVisible, setPasswordVisible] = useState(false);
   
   const [fontsLoaded, setFontsLoaded] = useState(false);
-  const inputRefs = useRef([]);
   const navigation = useNavigation();
 
   const navigateToVerification = async () => {
